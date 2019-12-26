@@ -1,4 +1,20 @@
-FROM openjdk:10-jre-slim
-ADD ./scebe-1.0.0-BUILD-SNAPSHOT.war scebe-1.0.0-BUILD-SNAPSHOT.war
-EXPOSE 8899
-ENTRYPOINT ["java","-jar","scebe-1.0.0-BUILD-SNAPSHOT.war"]
+FROM centos
+
+MAINTAINER vijaykumaar.hp@gmail.com
+
+RUN mkdir /opt/tomcat/
+
+WORKDIR /opt/tomcat
+RUN curl -O https://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.40/bin/apache-tomcat-8.5.40.tar.gz
+RUN tar xvfz apache*.tar.gz
+RUN mv apache-tomcat-8.5.40/* /opt/tomcat/.
+RUN yum -y install java
+RUN java -version
+
+WORKDIR /opt/tomcat/webapps
+ADD ./scebe-1.0.0-BUILD-SNAPSHOT.war /opt/tomcat/webapps/scebe-1.0.0-BUILD-SNAPSHOT.war
+RUN curl -O -L https://github.com/AKSarav/SampleWebApp/raw/master/dist/webapps/scebe-1.0.0-BUILD-SNAPSHOT.war
+
+EXPOSE 8080
+
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
