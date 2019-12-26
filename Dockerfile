@@ -5,9 +5,9 @@ MAINTAINER vijaykumaar.hp@gmail.com
 RUN mkdir /opt/tomcat/
 
 WORKDIR /opt/tomcat
-RUN curl -O https://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.40/bin/apache-tomcat-8.5.40.tar.gz
+RUN curl -O http://mirror.reverse.net/pub/apache/tomcat/tomcat-9/v9.0.30/bin/embed/apache-tomcat-9.0.30-embed.tar.gz
 RUN tar xvfz apache*.tar.gz
-RUN mv apache-tomcat-8.5.40/* /opt/tomcat/.
+RUN mv apache-tomcat-9.0.30-embed/* /opt/tomcat/.
 RUN yum -y install java
 RUN java -version
 
